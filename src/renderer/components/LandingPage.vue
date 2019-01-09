@@ -69,7 +69,7 @@
 <script>
   import SystemInformation from './LandingPage/SystemInformation'
   import $ from 'jquery'
-  var sfx = require('sfx')
+  var Tone = require('tone')
 
   export default {
     name: 'landing-page',
@@ -168,7 +168,11 @@
                 }
                 else{
                     this.soundInterval = setInterval(() => {
-                        sfx[alarm.sound]()
+                        //create a synth and connect it to the master output (your speakers)
+                        var synth = new Tone.Synth().toMaster();
+
+                        //play a middle 'C' for the duration of an 8th note
+                        synth.triggerAttackRelease("C4", "8n");
                     }, 1000)
                     this.triggeredAlarms.push(alarm)
                 }
